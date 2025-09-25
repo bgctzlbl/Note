@@ -66,13 +66,13 @@ add的类为绿色，没有add的是红色，commit的是白色
 
 主要是idea远程连接问题
 
-1.![image-20250821102104010](../AppData/Roaming/Typora/typora-user-images/image-20250821102104010.png)
+1.![](images/git-1.png)
 
 解决方法： `Appearance & Behavior` -> `System Settings` -> `HTTP Proxy`选择 `No proxy`
 
 2.无法连接远程仓库
 
-解决方法：![image-20250924213359742](../AppData/Roaming/Typora/typora-user-images/image-20250924213359742.png)
+解决方法：![](images/git-2.jpg)
 
 ```bash
 140.82.113.3  github  .com
@@ -155,7 +155,7 @@ git gc压缩文件
 
 2.没有冲突的3way merge，在master和bugfix都进行过提交进行merge，git会自动生成一个commit，按wq保存退出后会进行提交，git log会显示这次commit，cat看详细展示父类是master提交和bugfix提交的
 
-![image-20250718092219456](../AppData/Roaming/Typora/typora-user-images/image-20250718092219456.png)
+![](images/git-3.png)
 
 3.有冲突的3way merge，一开始看缓存区缓存文件git ls-files -s只有一个文件（版本号0)，进行git merge bugfix，会产生冲突无法生成，此时状态会是test.txt处于修改状态，此时cat test.txt能看到不同分支更改信息（git自动生成，HEAD是当前分支）,修改前看git ls-files -s发现索引里存了三个test文件(版本号123，可以通过git cat-file -p哈希值来查看具体内容)，然后code .可以进入编辑器进行更改，然后git add，git ls-files -s只有改后的文件，然后git commit，不用加信息，自动就是合并的信息，父类有master和bugfix下的最新更新，git branch -D bugfix前后没有删除文件，只是refs里heads的bugfix指针删除了
 
@@ -166,7 +166,7 @@ git gc压缩文件
 | `git merge`  | 直接把你的修改和网上的合并，保留两个分支的历史               | 第一天 → 第三天 → 第二天（乱序） |
 | `git rebase` | 把你的修改 “移动” 到网上最新内容后面，让时间线看起来像一条直线 | 第一天 → 第二天 → 第三天（整洁） |
 
-<video id="video" controls preload="none"> <source src="C:\Users\Ray\Desktop\屏幕录制 2025-08-20 201547.mp4" type="video/mp4"> 您的浏览器不支持视频播放。 </video> 
+<video id="video" controls preload="none"> <source src="images/git.MP4" type="video/mp4"> 您的浏览器不支持视频播放。 </video> 
 
 ###### 5.2idea相关
 
@@ -192,11 +192,11 @@ git config --global -l
 
 ###### 7.1原理相关
 
-![image-20250718104556454](../AppData/Roaming/Typora/typora-user-images/image-20250718104556454.png)
+![](images/git-4.png)
 
 heads下是分支结构，动态指向最新commit；tags下是tag，静态指向某个commit
 
-![image-20250718104612203](../AppData/Roaming/Typora/typora-user-images/image-20250718104612203.png)
+![](images/git-5.png)
 
 注意删除tag后对象仍保留，成为垃圾对象，因为sha1里包含了时间戳，所以标签内容名字一样也会新建一个tag对象
 
@@ -269,7 +269,7 @@ git branch -vv：1.**检查同步状态**2.**确认跟踪关系**3.**避免搞�
 
 ##### 九、hook
 
-![image-20250718192707102](../AppData/Roaming/Typora/typora-user-images/image-20250718192707102.png)
+![](images/git-6.png)
 
 通过使用 Git Hooks，我们可以在这些事件发生前或发生后执行特定的操作，比如自动化测试、代码风格检查、部署到服务器等
 
@@ -384,7 +384,7 @@ git worktree可以同时使用多个分支，放到子模块下可以共享一�
 
 在一个分支上改了bug，然后发现另一分支也存在相同的bug，可以将修改了的分支的内容直接迁移到另一分支：1.先切换到未修改的分支2.git cherrypick，修复后虽然commit的哈希值不同，但commit的名称和内容都相同3.应用完  git cherry - pick  进行bug修复后，通常会打上新的版本标签（如  Release tag 1.1  ），表示这个分支上有了新的稳定版本可以发布。
 
-![image-20250812150108472](../AppData/Roaming/Typora/typora-user-images/image-20250812150108472.png)
+![](images/git-7.png)
 
 这个提交应用了  master  分支上  Fix bug  提交中对文件的相同修改。由于它只关注特定提交的修改，不会把  master  分支上在  Fix bug  提交之后其他特性相关的提交合并过来，所以就实现了只将bug修复应用到  Stable/1.x  分支，而不包含其他特性。
 
@@ -406,7 +406,7 @@ patch开头是邮件开头，包括作者、日期、主题，主体是设置的
 
 **git sendemail**
 
-![image-20250812220744821](../AppData/Roaming/Typora/typora-user-images/image-20250812220744821.png)
+![](images/git-8.png)
 
 git sendemail 'patch的绝对文件路径'，在填写要发送的邮箱，不填邮件id，再选择yes，填相应密码,然后邮箱就会收到邮件名为patch的邮件，里面会有body，diff和version
 
@@ -492,7 +492,7 @@ git cp3
 - **蓝色**：已执行 `git add` 但未 `commit` 的暂存文件（提交后又进行文件idea修改但未提交或执行过 `git add` 后又做了新修改）。
 - **绿色**：已 `commit` 且无修改的文件（正常状态）。
 
-![image-20250823220021639](../AppData/Roaming/Typora/typora-user-images/image-20250823220021639.png)
+![](images/git-9.png)
 
 | 场景                                 | 是否勾选 “删除添加文件的本地拷贝” | 最终效果                                     |
 | ------------------------------------ | --------------------------------- | -------------------------------------------- |
@@ -593,3 +593,4 @@ git push origin 你的分支名  # 例如 git push origin feature/new-feature
 4.在网页上创建pr
 
 推送成功后，终端会显示类似 `https://github.com/pull/new/feature/new-feature` 的链接，直接复制到浏览器打开，在 GitHub 网页上创建 PR，填写标题和描述，再点击create pull request即可完成创建
+
